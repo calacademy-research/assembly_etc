@@ -1,2 +1,3 @@
 # assembly_etc
-Jim is a big fat pussycat
+
+Repo for assembly pipeline organization and scripts to support several sub-pipelines
