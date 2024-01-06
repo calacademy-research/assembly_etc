@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# cawk is shortcut for bioawk_cas
+# cawk -t '' will set FS and OFS to "\t"
+# do cawk -h to see all the new functions added
+
+bioawk_cas "$@"

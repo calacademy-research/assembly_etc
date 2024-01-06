@@ -1,0 +1,3 @@
+#!/bin/bash
+
+bioawk_cas -c fastx "$@"
