@@ -16,8 +16,11 @@ The telomere calls are included in the scaflens file discussed in another catego
 **METHOD OVERVIEW**
 
 The quality of HiFi reads makes it possible to look for the telomere signature without tolerating noise in the sequence itself.
-By default the hexmer TTAGGG and its reverse complement CCCTAA are searched. The grep_telomeres.sh script uses the fold command
+By default the hexmer TTAGGG and its reverse complement CCCTAA are searched.
+
+The grep_telomeres.sh script uses the fold command
 to split the lines and then searches for both patterns. If a certain number of patterns in in the line it is retained.
 The default is lines of 222bp with 6 or more patterns found. These can be changed with numeric args to the script.
+
 The default hexmer is by far the most common for vertebrates and arthropods but an argument with ACGT characters can be used
 to change this. None of the scripts calling the routines are currently modifying these defaults. (We are condidering using a telomere.motif file similar to busco.lineage usage to override defaults. But this not currently implemented)
