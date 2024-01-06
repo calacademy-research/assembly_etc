@@ -29,7 +29,7 @@ The default is lines of 222bp with 6 or more patterns found. These can be change
 
 If a telomere is called MIDDLE there is a percentage at the end of the line that shows where it is from the start giving a sense of how close to the beginning or end of the scaffold it was found.
 
-The overview_telomere_report.sh script sows the top line of the telomere run from the telomere report.
+The overview_telomere_report.sh script shows the top line of the telomere run from the telomere report.
 This has the call and a sampling of the telomere called line. The other lines in the report are excluded.
 
 The default hexmer is by far the most common for vertebrates and arthropods but an argument with ACGT characters can be used
