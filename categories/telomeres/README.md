@@ -15,7 +15,7 @@ This call is placed into several other outputs so it is useful to have the overv
 This is done by assembly and scaffolding scripts.
 The telomere calls are included in the scaflens file discussed in another category.
 
-telemere_report.sh will also write a file named annealed_telomeres.rpt if it finds telomere runs with Ns between them.
+telemere_report.sh will also write a file named **annealed_telomeres.rpt** if it finds telomere runs with Ns between them.
 This typically indicates the telomeres have been put (i.e., annealed) together incorrectly linking contigs.
 
 **METHOD OVERVIEW**
