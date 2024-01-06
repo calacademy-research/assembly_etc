@@ -37,7 +37,7 @@ to change this. None of the scripts calling the routines are currently modifying
 
 **OUTPUT EXAMPLE**
 
-Here's a sense of what the report will look like, with lots of lines exclude for this hit:
+Here's a sense of what the report will look like, with lots of lines exclude for this hit. If you scroll to the end you'll the numbers at the end that indicate how many telomere motif patterns were found on the line.
 
 ```
 ptg000001l TOP          299172356 13542bp 1..13542      CCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAA
