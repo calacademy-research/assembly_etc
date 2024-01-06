@@ -7,4 +7,7 @@ Invoking asm_dir_struct.sh with no arguments show information about the director
 Running it with a directory option, usually a dot '.' indicating the current directory, prints a
 list of commnds to create the structure.
 You can save this to a file and make modifications before running.
-However what we typically do is pipe it into bash
+However what we typically do is pipe it into bash while in the directory where we want to create the assembly.
+```
+asm_dir_struct.sh .  |  bash
+```
