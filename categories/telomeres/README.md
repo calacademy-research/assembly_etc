@@ -32,8 +32,8 @@ If a telomere is called MIDDLE there is a percentage at the end of the line that
 The overview_telomere_report.sh script shows the top line of the telomere run from the telomere report.
 This has the call and a sampling of the telomere called line. The other lines in the report are excluded.
 
-The default TTAGGG hexmer is by far the most common for vertebrates and arthropods but an argument with ACGT characters can be used
-to change this. None of the scripts calling the routines are currently modifying these defaults. (We are considering using a telomere.motif file similar to busco.lineage usage to override defaults; but this is not currently implemented.)
+The default TTAGGG hexmer is by far the most common for vertebrates and arthropods,
+though an argument with ACGT characters can be used to change this. None of the scripts calling the routines are currently modifying these defaults. (We are considering using a telomere.motif file similar to busco.lineage usage to override defaults; but this is not currently implemented.)
 
 **OVERVIEW LINE FIELDS**
 
@@ -42,7 +42,7 @@ Lines with the same record name are grouped together with blank line separating 
 Second is the called type of the telomere. Third is the record's length.
 Fourth is the size of the telomere stretch,
 though due to need for minimum number of patterns on a line this is usually a few bases shorter than actual size.
-Fifth field is the base offest range of the telomere.
+Fifth field is the base offset range of the telomere.
 Sixth field is 90 bases from the first line that met the telomere requirement.
 For a MIDDLE telomere, a seventh field is added for the percentage of the telomere into the record; start divided by record length as a percentage.
 
