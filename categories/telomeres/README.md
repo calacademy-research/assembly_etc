@@ -32,7 +32,7 @@ If a telomere is called MIDDLE there is a percentage at the end of the line that
 The overview_telomere_report.sh script shows the top line of the telomere run from the telomere report.
 This has the call and a sampling of the telomere called line. The other lines in the report are excluded.
 
-The default hexmer is by far the most common for vertebrates and arthropods but an argument with ACGT characters can be used
+The default TTAGGG hexmer is by far the most common for vertebrates and arthropods but an argument with ACGT characters can be used
 to change this. None of the scripts calling the routines are currently modifying these defaults. (We are considering using a telomere.motif file similar to busco.lineage usage to override defaults; but this not currently implemented.)
 
 
