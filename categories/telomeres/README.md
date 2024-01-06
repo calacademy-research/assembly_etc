@@ -27,7 +27,7 @@ The grep_telomeres.sh script uses the fold command
 to split the lines and then searches for both patterns. If a certain number of patterns is in the line it is retained.
 The default is lines of 222bp with 6 or more patterns found. These can be changed with numeric args to the script.
 
-If a telomere is called MIDDLE there is a percentage at the end of the line that shows where it is from the start.
+If a telomere is called MIDDLE there is a percentage at the end of the line that shows where it is from the start giving a sense of how close to the beginning or end of the scaffold it was found.
 
 The overview_telomere_report.sh script sows the top line of the telomere run from the telomere report.
 This has the call and a sampling of the telomere called line. The other lines in the report are excluded.
