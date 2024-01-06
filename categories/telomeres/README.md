@@ -38,9 +38,9 @@ None of the scripts calling the routines are currently modifying these defaults.
 (We are considering using a telomere.motif file similar to busco.lineage usage to override defaults;
 this is not currently implemented in any of the scripts.)
 
-Note: the split lines using grep and counting highlighted patterns technique was initally an exploration.
-We thought at first it would be an example of "it is not how well the dog dances but that a dog dances at all,"
-but we found the 
+Note: the use grep on fasta split lines and count highlighted patterns technique was initally an exploration.
+We thought at first it was "it is not how well the dog dances but that a dog dances at all,"
+but it worked well.
 
 **OVERVIEW LINE FIELDS**
 
