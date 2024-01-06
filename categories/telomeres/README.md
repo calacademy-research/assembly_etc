@@ -37,13 +37,14 @@ to change this. None of the scripts calling the routines are currently modifying
 
 **OVERVIEW LINE FIELDS**
 
-The overview line has 6 fields. First field is the contig or scaffold record name.
+The overview line has 6 or 7 fields. First field is the contig or scaffold record name.
 Lines with the same record name are grouped together with blank line separating groups.
 Second is the called type of the telomere. Third is the record's length.
 Fourth is the size of the telomere stretch,
 though due to need for minimum number of patterns on a line this is usually a few bases shorter than actual size.
 Fifth field is the base offest range of the telomere.
-Sixth and last field is 90 bases from the first line that met the telomere requirement.
+Sixth field is 90 bases from the first line that met the telomere requirement.
+For a MIDDLE telomere, a seventh field is added for the percentage of the telomere into the record; start divided by record length as a percentage.
 
 ```
 ptg000004l BOTTOM       17641550 15860bp 17625691..17641550     AGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTT
