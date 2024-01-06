@@ -8,7 +8,9 @@ Assuming the name of the assembly fasta is in the var $asm you can just create t
 
 The overview output calls telomeres as TOP, TOP_near, MIDDLE, BOTTOM_near, BOTTOM.
 This call is placed into several other outputs so it is useful to have the overview file created.
-This is done by assembly and scaffolding scripts. The call is included in the scaflens file discussed in anoterh category.
+This is done by assembly and scaffolding scripts.
+The telomere calls are included in the scaflens file discussed in another category.
 
 **METHOD OVERVIEW**
 
+The quality of HiFi reads makes it possible to look for the telomere signature without tolerating noise in the sequence itself.
