@@ -33,7 +33,14 @@ The overview_telomere_report.sh script shows the top line of the telomere run fr
 This has the call and a sampling of the telomere called line. The other lines in the report are excluded.
 
 The default TTAGGG hexmer is by far the most common for vertebrates and arthropods,
-though an argument with ACGT characters can be used to change this. None of the scripts calling the routines are currently modifying these defaults. (We are considering using a telomere.motif file similar to busco.lineage usage to override defaults; but this is not currently implemented.)
+though an argument with ACGT characters can be used to change this.
+None of the scripts calling the routines are currently modifying these defaults.
+(We are considering using a telomere.motif file similar to busco.lineage usage to override defaults;
+this is not currently implemented in any of the scripts.)
+
+Note: the split lines using grep and counting highlighted patterns technique was initally an exploration.
+We thought at first it would be an example of "it is not how well the dog dances but that a dog dances at all,"
+but we found the 
 
 **OVERVIEW LINE FIELDS**
 
