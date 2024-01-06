@@ -35,6 +35,21 @@ This has the call and a sampling of the telomere called line. The other lines in
 The default TTAGGG hexmer is by far the most common for vertebrates and arthropods but an argument with ACGT characters can be used
 to change this. None of the scripts calling the routines are currently modifying these defaults. (We are considering using a telomere.motif file similar to busco.lineage usage to override defaults; but this is not currently implemented.)
 
+**OVERVIEW LINE FIELDS**
+
+The overview line has 6 fields. First field is the contig or scaffold record name.
+Lines with the same record name are grouped together with blank line separating groups.
+Second is the called type of the telomere. Third is the record's length.
+Fourth is the size of the telomere stretch,
+though due to need for minimum number of patterns on a line this is usually a few bases shorter than actual size.
+Fifth field is the base offest range of the telomere.
+Sixth and last field is 90 bases from the first line that met the telomere requirement.
+
+```
+ptg000004l BOTTOM       17641550 15860bp 17625691..17641550     AGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTT
+```
+
+
 **OUTPUT EXAMPLE**
 
 Here's a sense of what the report will look like, with lots of lines excluded for this hit.
