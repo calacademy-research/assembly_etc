@@ -11,5 +11,5 @@ The category subfolder should have a README.md that details its use and its outp
 
 The current assembler supported is [hifiasm](https://github.com/chhylp123/hifiasm)
 and the preferred HiC super-scaffolder is [YAHS](https://github.com/c-zhou/yahs).
-You'll need to install them and the CAS version of bioawk, bioawk_cas which has extensions used in
-several scripts.
+You'll need to install them and the CAS version of bioawk,
+[bioawk_cas](https://github.com/calacademy-research/bioawk.CAS) which has extensions used in several scripts.
