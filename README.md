@@ -13,3 +13,4 @@ The current assembler supported is [hifiasm](https://github.com/chhylp123/hifias
 and the preferred HiC super-scaffolder is [YAHS](https://github.com/c-zhou/yahs).
 You'll need to install them and the CAS version of bioawk,
 [bioawk_cas](https://github.com/calacademy-research/bioawk.CAS) which has extensions used in several scripts.
+Invoking bioawk_cas for use with fastq or fasta files is done with the shortcut script [bawk]()
