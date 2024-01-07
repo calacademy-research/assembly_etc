@@ -60,10 +60,12 @@ those that aren't suitable for this assembly's needs.
     └── ncbi
 ```
 
-As the __create_file_named_busco.lineage_with_BUSCO_lineage_as_last_line_in_file__ file title says
+As the ____create_file_named_busco.lineage_with_BUSCO_lineage_as_last_line_in_file____ file title says
 you should make a file named **busco.lineage** in the top assembly directory.
 Later scripts that invoke **BUSCO** or its new complement **compleasm** will be able
 to find this file and run the programs with this lineage without additional user intervention.
+
+After you create busco.lineage, you can delete the empty file that told you to create it.
 
 If you know the lineage you want to use, say **sauropsida**, then you can create the file with this as in:
 ```
