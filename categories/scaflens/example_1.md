@@ -1,6 +1,8 @@
 **Example 1  Assembly scaflens file**
 
-``` hifiasm.asm.bp.p_ctg.scaflens ```
+```
+hifiasm.asm.bp.p_ctg.scaflens
+```
 
 ```
 ptg000005l	252310368	  252,310,368	18.09%	1	telomeres: TOP BOTTOM
