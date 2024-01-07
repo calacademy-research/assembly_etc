@@ -15,4 +15,5 @@ a .assembly file or .agp file.
 The primary script is **make_scaflens.sh** which takes an assembly fasta as its only argument.
 It runs the telomere overview script on the file then with this info in hand
 it loops through the records of the assembly file sorting by largest to smallest records and
-outputs basic stats.
+outputs basic stats. See [example_1](example_1)
+
