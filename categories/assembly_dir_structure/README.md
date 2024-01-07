@@ -70,3 +70,10 @@ If you know the lineage you want use, say **sauropsida** then you van a file wit
 echo sauropsida > busco.lineage
 ```
 
+If you have some of the NCBI taxonomy files installed,
+we will see later how you can use find_busco.lineage.sh to get a list of lineages appropriate for the subject taxon.
+
+For example
+```
+$ find_busco.lineage.sh 
+```
