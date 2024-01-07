@@ -77,7 +77,9 @@ get a list of lineages appropriate for the subject taxon.
 For example
 ```
 $ busco_lineage_from_taxid_or_name.sh "Scincidae;"
-
+```
+gives us
+```
 # Best lineage written to stdout, everything else to stderr, so can use with $()
 
 # looking for full taxonomy of "Scincidae;"
