@@ -13,7 +13,7 @@ asm_dir_struct.sh . | bash
 ```
 
 Here is the default structure. You can always feel free to add directories that you will need and remove
-those that aren't suitable for yhis assembly's needs.
+those that aren't suitable for this assembly's needs.
 
 ```
 .
