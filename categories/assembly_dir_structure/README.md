@@ -41,6 +41,8 @@ those that aren't suitable for this assembly's needs.
 │   └── JBAT_post_review_finalization
 ├── decontam
 ├── repeatmask
+│   ├── repeatmodeler
+│   └── repeatmasker
 ├── quality_assessment
 │   ├── BUSCO_links
 │   ├── Quast
