@@ -65,9 +65,9 @@ you should make a file named **busco.lineage** in the top assembly directory.
 Later scripts that invoke **BUSCO** or its new complement **compleasm** will be able
 to find this file and run the programs with this lineage without additional user intervention.
 
-If you know the lineage you want to use, say **sauropsida** ,then you can create the file with this as in:
+If you know the lineage you want to use, say **sauropsida**, then you can create the file with this as in:
 ```
-$ echo sauropsida > busco.lineage
+$ echo sauropsida >> busco.lineage
 ```
 
 If you have some of the NCBI taxonomy files installed,
