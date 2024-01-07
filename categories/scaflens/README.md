@@ -1,4 +1,6 @@
-**SCAFLENS FILE**
+uses: *categories/telomeres*
+
+**SCAFLENS FILEs**
 
 After assembly and HiC scaffolding several files are created.
 The basic stats using asm_stats.pl or its wrapper, hifi_asmstats.sh and
