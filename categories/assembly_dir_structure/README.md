@@ -71,9 +71,24 @@ $ echo sauropsida >> busco.lineage
 ```
 
 If you have some of the NCBI taxonomy files installed,
-we will see later how you can use find_busco.lineage.sh to get a list of lineages appropriate for the subject taxon.
+we will see later how you can use busco_lineage_from_taxid_or_name.sh to
+get a list of lineages appropriate for the subject taxon.
 
 For example
 ```
-$ find_busco.lineage.sh 
+$ busco_lineage_from_taxid_or_name.sh "Scincidae;"
+
+# Best lineage written to stdout, everything else to stderr, so can use with $()
+
+# looking for full taxonomy of "Scincidae;"
+1273157 | Acontinae | cellular organisms; Eukaryota; Opisthokonta; Metazoa; Eumetazoa; Bilateria; Deuterostomia; Chordata; Craniata; Vertebrata; Gnathostomata; Teleostomi; Euteleostomi; Sarcopterygii; Dipnotetrapodomorpha; Tetrapoda; Amniota; Sauropsida; Sauria; Lepidosauria; Squamata; Bifurcata; Unidentata; Scinciformata; Scincidae; |
+
+# matching busco lineages
+ eukaryota_odb10 	[255]
+     - metazoa_odb10 	[954]
+         - vertebrata_odb10 	[3354]
+             - tetrapoda_odb10 	[5310]
+                 - sauropsida_odb10 	[7480]
+# best busco lineage
+sauropsida
 ```
