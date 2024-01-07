@@ -5,7 +5,7 @@ The script can also be used to create the structure for you.
 
 Invoking asm_dir_struct.sh with no arguments shows information about the directory names and functions.
 Running it with a directory option, usually a dot '.' indicating the current directory, prints a
-list of commnds to create the structure.
+list of commands to create the structure.
 You can save this to a file and make modifications before running.
 However what we typically do is pipe it into bash while in the directory where we want to create the assembly.
 ```
