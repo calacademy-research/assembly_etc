@@ -1,4 +1,4 @@
-uses: *categories/telomeres* *replace_ext.sh*
+uses: *categories/telomeres*, *replace_ext.sh*
 
 **SCAFLENS FILEs**
 
