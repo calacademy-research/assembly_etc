@@ -67,7 +67,7 @@ to find this file and run the programs with this lineage without additional user
 
 If you know the lineage you want use, say **sauropsida** then you van a file with this as in:
 ```
-echo sauropsida > busco.lineage
+$ echo sauropsida > busco.lineage
 ```
 
 If you have some of the NCBI taxonomy files installed,
