@@ -22,7 +22,7 @@ those that aren't suitable for this assembly's needs.
 ├── reads
 │   ├── HiFi
 │   │   ├── raw_data
-│   │   ├── __replace_raw_data_dir_with_softlink_to_dir_where_files_located__
+│   │   ├── __can_replace_raw_data_dir_with_softlink_to_dir_where_files_located__
 │   │   ├── clean
 │   │   └── decontam_reads
 │   ├── HiC
