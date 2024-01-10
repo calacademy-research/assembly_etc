@@ -20,8 +20,8 @@ function show_dir_struct {
         reads
             HiFi [put softlinks at this level pointing into the clean subdir file]
                 raw_data [one or more cells, use ccs on subreads bam, hifibam2fastq.sh from ccs output bam]
+                __can_replace_raw_data_dir_with_softlink_to_dir_where_files_located__
                 clean [use remove_hifi_reads_lt_1000_or_w_adapter.sh to remove reads with lingering SMRTbell adapters -- another form of cleaning is done with decontam later on]
-                decontam_reads [probably just softlinks in this dir]
             HiC [put softlinks at this level pointing into the clean subdir file]
                 raw_data
                 clean [run fastp]
@@ -48,6 +48,8 @@ function show_dir_struct {
         decontam [at this level since the decontam process uses the clean reads but also assemblies at various times]
 
         repeatmask [repeatmodeler_run.sh and repeatmasker prep and .tbl file to summarize the repeats (red pgm also possible to use)]
+            repeatmodeler
+            repeatmasker
 
         quality_assessment
             BUSCO_links
@@ -82,7 +84,7 @@ function show_mkdir_cmds {
    dir=$(realpath $1)
    show "cd $dir"
    show "asm_dir_struct.sh >dir_struct.notes; sleep 1"
-   show 'function dir_create { mkdir -p $1; chmod 2775 $1; sleep 1; }'
+   show 'function dir_create { ([[ $1 == *__*__ ]] && >$1) || (mkdir -p $1; chmod 2775 $1); sleep 1; }'
    show ">__create_file_named_busco.lineage_with_BUSCO_lineage_as_last_line_in_file__; sleep 1"
 
    show_dir_struct | awk '
