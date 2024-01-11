@@ -97,6 +97,8 @@ ptg000007l TOP          18644349 4218bp 1..4218         TAACCCTAACCCTAACCCTAACCC
 ptg000007l BOTTOM       18644349 14997bp 18629353..18644349     GGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTA
 ```
 
+**Annealed telomeres**
+
 This is large but an example of an annealed telomere set. Notice the Ns and also that the telomere motif starts with one form and then after the run of Ns is its reverse complement. This is by far the most common pattern for this mis-scaffolding.
 
 ```
