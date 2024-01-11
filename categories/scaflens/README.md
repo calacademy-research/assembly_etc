@@ -17,6 +17,8 @@ It runs the telomere overview script on the file then with this info in hand
 it loops through the records of the assembly file sorting by largest to smallest records and
 outputs basic stats. See [hifiasm output scaflens](example_1.md) created by ```make_scaflens.sh hifiasm.asm.bp.p_ctg.fasta```
 
+**BUSCO stats added**
+
 The script **add_busco_stats_to_scaflens.sh** with a scaflens file argument and a BUSCO directory argument
 (or a full_table.tsv file argument)
 will add per contig BUSCO info to the file as seen in this [example of scaflens with busco counts](example_2.md).
@@ -30,3 +32,8 @@ means that all of the duplicate SCOs found in this contig have already been seen
 
 The compleasm and BUSCO scripts both create a scaflens file with BUSCO stats added to it
 in the BUSCO or compleasm output directory after the run completes.
+
+**purge_dups analysis added**
+
+The purge_dups.sh script creates a scaflens file with the purge_dups classifications of the input contigs added.
+This is done with 
