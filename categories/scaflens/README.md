@@ -4,7 +4,7 @@ uses: *categories/telomeres*, *replace_ext.sh*
 
 After assembly and also after HiC scaffolding several files are created.
 The basic stats using asm_stats.pl or its wrapper, hifi_asmstats.sh, and
-the scaffold or record info file called scaflens, the name carried over from earlier scripts.
+the scaffold or record info file called scaflens, the name carried over from earlier scripts for short read assemblies.
 
 The basics of the information in the scaflens file is simple but it directly calls the telomere scripts
 to add this info into the scaflens output.
