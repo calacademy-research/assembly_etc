@@ -17,4 +17,8 @@ It runs the telomere overview script on the file then with this info in hand
 it loops through the records of the assembly file sorting by largest to smallest records and
 outputs basic stats. See [hifiasm output scaflens](example_1.md) created by ```make_scaflens.sh hifiasm.asm.bp.p_ctg.fasta```
 
-The script add_busco_stats_to_scaflens.sh with a BUSCO directory argument (or a full_table.tsv) a scaflens file argument willadd per contig BUSCO info to the file as seen in this [example of scalfens with busco counts](example_2.md)
+The script add_busco_stats_to_scaflens.sh with a scaflens file argument and a BUSCO directory argument (or a full_table.tsv)
+will add per contig BUSCO info to the file as seen in this [example of scalfens with busco counts](example_2.md).
+For example,
+```
+```
