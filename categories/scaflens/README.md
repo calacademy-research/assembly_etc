@@ -26,3 +26,6 @@ ptg000005l	252310368	  252,310,368	18.09%	1	B:920 C:875 F:9 D:28 d:36	telomeres:
 The ```D:28 d:36``` means there were 36 duplicate SCOs found in the contig and that 28 of them were only found in this contig. Meaning that 8 were also found in other contigs.
 An entry with an asterisk at the end, ```B:5 C:0 F:0 D:5 d:5 *```,
 means that all of the duplicate SCOs found in this contig have already been seen in larger contigs.
+
+The compleasm and BUSCO scripts both create a scaflens file with BUSCO stats added to it
+in the BUSCO output directory after the BUSCO run completes.
