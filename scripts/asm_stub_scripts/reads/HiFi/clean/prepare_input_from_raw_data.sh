@@ -1,8 +1,6 @@
 #!/bin/bash
 
 function main {
-   mkdir -p input
-
    check_for_files
    prepare_input
    fin_msg
@@ -35,7 +33,7 @@ function prepare_input {
 
    files_linked=0
 
-   mkdir -p input  # should already be there
+   mkdir -p input
    cd input
 
    # loop through typical forms of the sequence files -- if we get here there is at least one such file
