@@ -11,7 +11,7 @@ overview_telomere_report.sh <(telomere_report.sh $asm) > telemere_overview.txt
 The telemere_report.sh output calls telomeres as **TOP**, **TOP_near**, **MIDDLE**, **BOTTOM_near**, **BOTTOM**.
 This call is placed into several other outputs so it is useful to have the overview file created.
 This is done by assembly and scaffolding scripts.
-The telomere calls are included in the scaflens file discussed in another category.
+The telomere calls are included in the [scaflens](../scaflens) file discussed in another category.
 
 telemere_report.sh will also write a file named **annealed_telomeres.rpt** if it finds telomere runs with Ns between them.
 This typically indicates the telomeres have been put (i.e., annealed) together incorrectly linking contigs.
@@ -36,7 +36,7 @@ None of the scripts calling the routines are currently modifying these defaults.
 (We are considering using a telomere.motif file similar to busco.lineage usage to override defaults;
 this is not currently implemented in any of the scripts.)
 
-Note: the use grep on fasta split lines and counting highlighted patterns technique was initally an exploration.
+Note: using grep on fasta split lines and counting highlighted patterns was initially just an exploration.
 We thought at first it was going to be a case of "it's not how well the dog dances but that a dog dances at all,"
 but it worked well enough to keep.
 
@@ -96,6 +96,8 @@ ptg000006l BOTTOM       11756239 11322bp 11744911..11756232     GGGTTAGGGTTAGGGT
 ptg000007l TOP          18644349 4218bp 1..4218         TAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCC
 ptg000007l BOTTOM       18644349 14997bp 18629353..18644349     GGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTA
 ```
+
+**Annealed telomeres**
 
 This is large but an example of an annealed telomere set. Notice the Ns and also that the telomere motif starts with one form and then after the run of Ns is its reverse complement. This is by far the most common pattern for this mis-scaffolding.
 
