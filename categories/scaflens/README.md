@@ -2,7 +2,7 @@ uses: *categories/telomeres*, *replace_ext.sh*
 
 **SCAFLENS FILE**
 
-After assembly and HiC scaffolding several files are created.
+After assembly and also after HiC scaffolding several files are created.
 The basic stats using asm_stats.pl or its wrapper, hifi_asmstats.sh, and
 the scaffold or record info file called scaflens, the name carried over from earlier scripts.
 
