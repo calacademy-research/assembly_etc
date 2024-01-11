@@ -29,4 +29,4 @@ An entry with an asterisk at the end, ```B:5 C:0 F:0 D:5 d:5 *```,
 means that all of the duplicate SCOs found in this contig have already been seen in larger contigs.
 
 The compleasm and BUSCO scripts both create a scaflens file with BUSCO stats added to it
-in the BUSCO output directory after the BUSCO run completes.
+in the BUSCO or compleasm output directory after the run completes.
