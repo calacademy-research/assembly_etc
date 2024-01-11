@@ -36,4 +36,4 @@ in the BUSCO or compleasm output directory after the run completes.
 **purge_dups analysis added**
 
 The purge_dups.sh script creates a scaflens file with the purge_dups classifications of the input contigs added.
-This is done with 
+This is done with the **add_purge_dups_to_scaflens.sh** script.  Here is an [example scaflens with purge_dups info].
