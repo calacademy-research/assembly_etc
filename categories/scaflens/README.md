@@ -1,6 +1,6 @@
 uses: *categories/telomeres*, *replace_ext.sh*
 
-**SCAFLENS FILE**
+**Basic Scaflens File**
 
 After assembly and also after HiC scaffolding several files are created.
 The basic stats using asm_stats.pl or its wrapper, hifi_asmstats.sh, and
