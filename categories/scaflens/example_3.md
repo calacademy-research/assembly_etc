@@ -1,4 +1,8 @@
 ```
+hifiasm.asm.bp.p_ctg.fasta.scaflens_w_purge_info
+```
+
+```
 ptg000005l	252310368	  252,310,368	18.09%	1	telomeres: TOP BOTTOM
 ptg000012l	187291991	  439,602,359	31.51%	2
 ptg000025l	125735586	  565,337,945	40.52%	3
