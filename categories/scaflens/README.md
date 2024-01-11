@@ -21,4 +21,6 @@ The script add_busco_stats_to_scaflens.sh with a scaflens file argument and a BU
 will add per contig BUSCO info to the file as seen in this [example of scalfens with busco counts](example_2.md).
 For example,
 ```
+ptg000005l	252310368	  252,310,368	18.09%	1	B:920 C:875 F:9 D:28 d:36	telomeres: TOP BOTTOM
 ```
+The ```D:28 d:36``` means there were 36 duplicate SCOs found in the contig and that 28 of them were only found in this contig. Meaning that 8 were also found in other contigs.
