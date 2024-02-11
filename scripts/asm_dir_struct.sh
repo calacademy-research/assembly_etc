@@ -101,6 +101,9 @@ function show_mkdir_cmds {
 
       RLENGTH<=11{ printf("dir_create %s\n", $1); parent = $1}
    '
+
+   show add_asm_dir_scripts.sh $dir
+
    show "tree -t"
 }
 
