@@ -35,12 +35,19 @@ function usage {
           defaults to the primary gfa of the hifiasm run
           converts the gfa to fasta, creates files for basic stats and scaffold lens info
 
-          after running, run it again, preferrably in a screen, with a BUSCO lineage and
+          after running, run it again, preferably in a screen, with a BUSCO lineage and
           it will run BUSCO for you and after that create a BUSCO hits file in scaffold order
           and update the scaffold lens file with the BUSCO info
    "
    exit 1
 }
+
+function is_int {
+   [ -z "$1" ] && false && return
+   re='^[+-]?[0-9]+$'
+   [[ "$1" =~ $re ]]
+}
+
 function basic_files_msg {
    msg "
    --------------------------------------------------------------------------------------------------
@@ -53,6 +60,7 @@ function basic_files_msg {
    --------------------------------------------------------------------------------------------------
    "
 }
+
 
 ###################################
 #  basic file creation functions  #
@@ -241,7 +249,10 @@ function run_BUSCO_and_make_addtl_files {
       [ -z $2 ] && threads=32
 
       # 15Dec2023 run compleasm since is faster than orig BUSCO
-      compleasm.sh $fasta $threads $lineage
+      # compleasm.sh $fasta $threads $lineage
+
+      # 19Jan2024 change to do both compleasm and BUSCO
+      dual_compleasm_busco.sh $fasta $threads $lineage
 
       return
 
@@ -263,6 +274,10 @@ function run_BUSCO_and_make_addtl_files {
    make_addtl_files
 }
 
+function fcs_contam_check_if_have_taxid {
+   is_int $FCS_TAXID && fcs_contam_check.sh $fasta $FCS_TAXID
+}
+
 
 ###################################
 #        run the functions        #
@@ -273,6 +288,7 @@ retcode=$?  # set to 125 if file has already exists, meaning make_basic_files wa
 
 if [ ! -z $1 ] && [ $retcode = 125 ]; then
    run_BUSCO_and_make_addtl_files $@
+   fcs_contam_check_if_have_taxid
 elif [ -s "$fasta" ] && [ -s "$stats" ] && [ -s "$scaflens" ]; then
    basic_files_msg
 else
