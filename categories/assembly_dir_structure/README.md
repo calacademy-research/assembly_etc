@@ -65,7 +65,7 @@ those that aren't suitable for this assembly's needs.
 
 As the ____create_file_named_busco.lineage_with_BUSCO_lineage_as_last_line_in_file____ file title says
 you should make a file named **busco.lineage** in the top assembly directory.
-Later scripts that invoke [**BUSCO**](https://gitlab.com/ezlab/busco) or its new complement [**compleasm**](https://github.com/huangnengCSU/compleasm) will be able
+Later *scripts* that invoke [**BUSCO**](https://gitlab.com/ezlab/busco) or its new complement [**compleasm**](https://github.com/huangnengCSU/compleasm) will be able
 to find this file and run the programs with this lineage without additional user intervention.
 
 After you create busco.lineage, you can delete the empty file that told you to create it.
