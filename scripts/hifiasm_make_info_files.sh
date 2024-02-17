@@ -71,7 +71,7 @@ function fasta_from_gfa {
       msg "\ngfa2fasta.sh $gfa >$fasta"
       rm -f circular_ctg.fa
       gfa2fasta.sh $gfa | bawk '
-         $name ~ "ptg[0-9]*c" {
+         $name ~ "tg[0-9]+c" {
             printf(">%s\n%s\n", $name,$seq) >>"circular_ctg.fa"
             next
          }
@@ -154,12 +154,13 @@ function telomere_files {
 function hifi_adapter_check {  # 16Apr2023 added
    [ -s $hifi_adapter_check_file ] && msg $hifi_adapter_check_file already created && return
 
+   msg "hifi_adapter_search.sh $fasta >$hifi_adapter_check_file"
    hifi_adapter_search.sh $fasta | tee $hifi_adapter_check_file
 }
 
-function make_basic_files {  # no using arg anymore, just works for primary gfa
-   # this depends on the 3 formats that hifiasm uses for its primary gfa output file
-   primary_gfa=$(ls -1tr *[pc].p_ctg.gfa | head -1)
+function make_basic_files {  # not using arg anymore, just works for primary gfa
+   # this depends on the 3 formats that hifiasm uses for its primary gfa output file. adding 12 so hap1.p_ctg.gfa or hap2.p_ctg.gfa foundg
+   primary_gfa=$(ls -1tr *[pc12].p_ctg.gfa | head -1)
 
    [ -z $gfa ] && gfa=$primary_gfa
 
@@ -275,7 +276,14 @@ function run_BUSCO_and_make_addtl_files {
 }
 
 function fcs_contam_check_if_have_taxid {
-   is_int $FCS_TAXID && fcs_contam_check.sh $fasta $FCS_TAXID
+   [ -d fcs_contam_check_output ] && msg FCS contamination check already attempted && return
+
+   [ -z "$FCS_TAXID" ] && FCS_TAXID=$(find_taxon_id.sh 2>/dev/null)
+
+   if is_int $FCS_TAXID; then
+      msg "fcs_contam_check.sh $fasta $FCS_TAXID"
+      fcs_contam_check.sh $fasta $FCS_TAXID
+   fi
 }
 
 
@@ -284,7 +292,7 @@ function fcs_contam_check_if_have_taxid {
 ###################################
 
 make_basic_files $1
-retcode=$?  # set to 125 if file has already exists, meaning make_basic_files was successful
+retcode=$?  # set to 125 if basic files already exist, meaning make_basic_files was successful
 
 if [ ! -z $1 ] && [ $retcode = 125 ]; then
    run_BUSCO_and_make_addtl_files $@
