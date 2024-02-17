@@ -88,6 +88,9 @@ if [ $retcode ]; then  # we have a .p_ctg.gfa file be it bp.p_ctg.gfa or hic.p_c
 
    hifiasm_make_info_files.sh
 
+   # 17Feb2024 used to make hap1 hap2 gfa dirs with basic files in them too
+   hifiasm_hap_create_basic_files.sh  # OK to call if no hap1 or hap2 gfa, nothing done
+
    # if we have a busco.lineage file here or in upstream dirs, very quick
    # if not we run blast on the first file arg are crreate the busco.lineage in a parent or grandparent dir
 
