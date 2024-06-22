@@ -143,8 +143,7 @@ function telomere_files {
       [ -s $telomere_report ]   && msg "$telomere_report created"
 
       if [ -s $telomere_overview ]; then
-         msg "$telomere_overview created\n"
-
+         msg "$telomere_overview created"
 #         bed_from_telomere_overview.sh $telomere_overview
 #         [ -s $bigbed_file ] && msg "\n$bigbed_file created for use as annotation in JBAT"
       fi
@@ -154,7 +153,7 @@ function telomere_files {
 function hifi_adapter_check {  # 16Apr2023 added
    [ -s $hifi_adapter_check_file ] && msg $hifi_adapter_check_file already created && return
 
-   msg "hifi_adapter_search.sh $fasta >$hifi_adapter_check_file"
+   msg "\nhifi_adapter_search.sh $fasta >$hifi_adapter_check_file"
    hifi_adapter_search.sh $fasta | tee $hifi_adapter_check_file
 }
 

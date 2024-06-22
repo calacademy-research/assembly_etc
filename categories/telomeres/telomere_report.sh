@@ -237,4 +237,7 @@ function anneal_check {
 #   call the various functions or script to do the work    #
 ############################################################
 
-grep_telomeres.sh $@ | write_telomere_report | add_agp_info $2 | anneal_check
+# 22Jun2024 get telomere motif to pass to grep_telomeres.sh
+motif=$(find_telomere_motif.sh 2>/dev/null)
+
+grep_telomeres.sh $@ $motif | write_telomere_report | add_agp_info $2 | anneal_check

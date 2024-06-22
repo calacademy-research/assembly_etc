@@ -24,6 +24,7 @@ function create_softlinks {
    cd input
 
    # loop through typical forms of the sequence files -- if we get here there is at least one such file
+   cleandir=../../../reads/HiFi/clean  # now in input dir need one more ..
 
    for f in $(ls $cleandir/*.fast[qa].gz $cleandir/*.fast[qa] $cleandir/*.f[qa].gz $cleandir/*.f[qa] 2>/dev/null); do
       ln -s $f . && (( files_linked++ ))
