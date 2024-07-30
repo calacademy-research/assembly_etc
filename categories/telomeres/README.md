@@ -1,29 +1,36 @@
 **BASICS**
 
-*telemere_report.sh* calls *grep_telomeres.sh* to do the work. *overview_telomere_report.sh* takes telemere_report.sh output and creates the overview.
+*telomere_report.sh* calls *find_telomere_motif.sh* to set the telomere motif, default TTAGGG, then *grep_telomeres.sh* to do the work.
+
+*overview_telomere_report.sh* takes telomere_report.sh output and creates the overview.
 
 Assuming the name of the assembly fasta is in the var $asm you can just create the overview by doing:
 
 ```
-overview_telomere_report.sh <(telomere_report.sh $asm) > telemere_overview.txt
+overview_telomere_report.sh <(telomere_report.sh $asm) > telomere_overview.txt
 ```
 
-The telemere_report.sh output calls telomeres as **TOP**, **TOP_near**, **MIDDLE**, **BOTTOM_near**, **BOTTOM**.
-This call is placed into several other outputs so it is useful to have the overview file created.
+The telomere_report.sh output calls telomeres as **TOP**, **TOP_near**, **MIDDLE**, **BOTTOM_near**, **BOTTOM**.
+Telomere calls are placed into several other outputs so it is useful to have the overview file created.
 This is done by assembly and scaffolding scripts.
 The telomere calls are included in the [scaflens](../scaflens) file discussed in another category.
+If called MIDDLE, the percentage into the record is also shown.
 
-telemere_report.sh will also write a file named **annealed_telomeres.rpt** if it finds telomere runs with Ns between them.
+telomere_report.sh will also write a file named **annealed_telomeres.rpt** if it finds telomere runs with Ns between them.
 This typically indicates the telomeres have been put (i.e., annealed) together incorrectly linking contigs.
 
 **METHOD OVERVIEW**
 
 The quality of HiFi reads makes it possible to look for the telomere signature without tolerating noise in the sequence itself.
-By default the hexmer TTAGGG and its reverse complement CCCTAA are searched.
+By default hexamer TTAGGG and its reverse complement CCCTAA are searched, though find_telomere_motif.sh is used to set other motifs.
+If there is a file named telomere.motif in the directory hierarchy the first item in a non-comment line is used as the motif.
+Otherwise, if there is a busco.lineage file in the directory hierarchy then it is used; e.g., lineage lepidoptera uses motif TTAGG.
 
 The grep_telomeres.sh script uses the fold command
 to split the lines and then searches for both patterns. If a certain number of patterns is in the line it is retained.
 The default is lines of 222bp with 6 or more patterns found. These can be changed with numeric args to the script.
+Telomere blocks are grouped by telomere_report.sh finding a line with 25 or more patterns, expanding the block above and below with lines
+having any patterns, 6 or more by default.
 
 If a telomere is called MIDDLE there is a percentage at the end of the line that shows where it is from the start giving a sense of how close to the beginning or end of the scaffold it was found.
 
@@ -31,10 +38,10 @@ The overview_telomere_report.sh script shows the top line of the telomere run fr
 This has the call and a sampling of the telomere called line. The other lines in the report are excluded.
 
 The default TTAGGG hexmer is by far the most common for vertebrates and arthropods,
-though an argument with ACGT characters can be used to change this.
-None of the scripts calling the routines are currently modifying these defaults.
-(We are considering using a telomere.motif file similar to busco.lineage usage to override defaults;
-this is not currently implemented in any of the scripts.)
+though an argument with ACGT characters to telomere_report.sh can be used to change this and find_telomere_motif.sh
+is called in telomere_report.sh to set the motif by either the telomere.motif or busco.lineage file if no argument
+overrides this setting.
+For example, the call to telomere_report.sh in make_scaflens.sh uses find_telomere_motif.sh to set the motif.
 
 Note: using grep on fasta split lines and counting highlighted patterns was initially just an exploration.
 We thought at first it was going to be a case of "it's not how well the dog dances but that a dog dances at all,"
