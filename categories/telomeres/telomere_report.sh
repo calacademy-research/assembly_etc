@@ -11,8 +11,15 @@ function msg { # write a msg to stderr
    >&2 echo -e "$@"
 }
 
+function is_motif {
+   [ -z "$1" ] && false && return
+
+   re='^[ACGTacgt][ACGTacgt][ACGTacgt]+$'
+   [[ "$1" =~ $re ]]
+}
+
 function is_agp_file {
-   if [ -z $1 ]; then false; return; fi
+   if [ ! -s "$1" ]; then false; return; fi
 
    putative_agp_file=$1
    agp=$(awk '$5=="W"&&NF==9{print "agp"}{exit}' $putative_agp_file)
@@ -70,7 +77,7 @@ function add_agp_info {
 
 function write_telomere_report {
  awk '
-   BEGIN{ threshold_val = 28; threshold_num = 3 }  # look for a count gt threshhold_val, threshold_num times in a row
+   BEGIN{ threshold_val = 25; threshold_num = 3 }  # look for a count gt threshhold_val, threshold_num times in a row
 
    function threshold_met(line,    lines_rec_line, times) {
       lines_rec_line = rec_lines[line]["rec_line"]
@@ -233,11 +240,23 @@ function anneal_check {
    '
 }
 
+function set_motif {
+   # sets motif via find_telomere_motif.sh unless it is on cmd line, in which case we leave var unset
+   # since it will get passed into grep_telomeres anyway
+
+   # 22Jun2024 get telomere motif to pass to grep_telomeres.sh
+   motif=$(find_telomere_motif.sh 2>/dev/null)
+
+   shift # skip file arg
+   for arg in $@; do
+      is_motif $arg && motif=""  # no need to use mptif var sonce all args passed on
+   done
+}
+
 ############################################################
 #   call the various functions or script to do the work    #
 ############################################################
 
-# 22Jun2024 get telomere motif to pass to grep_telomeres.sh
-motif=$(find_telomere_motif.sh 2>/dev/null)
+set_motif $@  # set telomere motif var if not on command line
 
 grep_telomeres.sh $@ $motif | write_telomere_report | add_agp_info $2 | anneal_check
