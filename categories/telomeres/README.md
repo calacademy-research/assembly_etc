@@ -1,8 +1,9 @@
 **BASICS**
 
-*telomere_report.sh* calls *find_telomere_motif.sh* to set the telomere motif, default TTAGGG, then *grep_telomeres.sh* to do the work.
+***telomere_report.sh*** calls ***find_telomere_motif.sh*** to set the telomere motif, default TTAGGG,
+then ***grep_telomeres.sh*** to do the work.
 
-*overview_telomere_report.sh* takes telomere_report.sh output and creates the overview.
+***overview_telomere_report.sh*** takes telomere_report.sh output and creates the overview.
 
 Assuming the name of the assembly fasta is in the var $asm you can just create the overview by doing:
 
