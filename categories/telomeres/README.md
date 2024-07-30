@@ -24,7 +24,8 @@ This typically indicates the telomeres have been put (i.e., annealed) together i
 The quality of HiFi reads makes it possible to look for the telomere signature without tolerating noise in the sequence itself.
 By default hexamer TTAGGG and its reverse complement CCCTAA are searched, though find_telomere_motif.sh is used to set other motifs.
 If there is a file named telomere.motif in the directory hierarchy the first item in a non-comment line is used as the motif.
-Otherwise, if there is a busco.lineage file in the directory hierarchy then it is used; e.g., lineage lepidoptera uses motif TTAGG.
+Otherwise, if there is a busco.lineage file in the directory hierarchy then it is used to assign a motif;
+e.g., lineage lepidoptera uses motif TTAGG.
 
 The grep_telomeres.sh script uses the fold command
 to split the lines and then searches for both patterns. If a certain number of patterns is in the line it is retained.
@@ -44,7 +45,7 @@ overrides this setting.
 For example, the call to telomere_report.sh in make_scaflens.sh uses find_telomere_motif.sh to set the motif.
 
 Note: using grep on fasta split lines and counting highlighted patterns was initially just an exploration.
-We thought at first it was going to be a case of "it's not how well the dog dances but that a dog dances at all,"
+We thought at first it was going to be a case of "it's not how well the dog dances but that the dog dances at all,"
 but it worked well enough to keep.
 
 **OVERVIEW LINE FIELDS**
