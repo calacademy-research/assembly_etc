@@ -12,10 +12,11 @@ overview_telomere_report.sh <(telomere_report.sh $asm) > telomere_overview.txt
 ```
 
 The telomere_report.sh output calls telomeres as **TOP**, **TOP_near**, **MIDDLE**, **BOTTOM_near**, **BOTTOM**.
-Telomere calls are placed into several other outputs so it is useful to have the overview file created.
-This is done by assembly and scaffolding scripts.
-The telomere calls are included in the [scaflens](../scaflens) file discussed in another category.
 If called MIDDLE, the percentage into the record is also shown.
+Telomere calls are placed into several other outputs so it is useful to have the overview file created.
+This is done for you by assembly and scaffolding scripts.
+The telomere calls are included in the [scaflens](../scaflens) file discussed in another category
+and the script that makes it will call telomere_report.sh if the overview has not been created.
 
 telomere_report.sh will also write a file named **annealed_telomeres.rpt** if it finds telomere runs with Ns between them.
 This typically indicates the telomeres have been put (i.e., annealed) together incorrectly linking contigs.
@@ -26,7 +27,7 @@ The quality of HiFi reads makes it possible to look for the telomere signature w
 By default hexamer TTAGGG and its reverse complement CCCTAA are searched, though find_telomere_motif.sh is used to set other motifs.
 If there is a file named telomere.motif in the directory hierarchy the first item in a non-comment line is used as the motif.
 Otherwise, if there is a busco.lineage file in the directory hierarchy then it is used to assign a motif;
-e.g., lineage lepidoptera uses motif TTAGG.
+e.g., lineage lepidoptera assigns the motif TTAGG.
 
 The grep_telomeres.sh script uses the fold command
 to split the lines and then searches for both patterns. If a certain number of patterns is in the line it is retained.
