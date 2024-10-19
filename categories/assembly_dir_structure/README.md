@@ -81,7 +81,7 @@ get a list of lineages appropriate for the subject taxon.
 
 For example
 ```
-$ busco_lineage_from_taxid_or_name.sh "Scincidae;"
+$ busco_lineage_from_taxid_or_name.sh Scincidae
 ```
 gives us
 ```
