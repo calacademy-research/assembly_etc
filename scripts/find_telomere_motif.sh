@@ -40,12 +40,12 @@ function get_telomere.motif_filename {
 
 function motif_from_file {  # get motif from first field in telomere.motif file found in the dir heirarchy
    motif_file=$(get_telomere.motif_filename)
-   [[ -z "motif_file" || ! -s $motif_file ]] && return
+   [[ -z "$motif_file" || ! -s $motif_file ]] && return
    awk '/^#/{next} {print $1; exit}' $motif_file
 }
 
 
-DEFAULT=TTAGGG  # also default in grep_telomere.sh
+DEFAULT=TTAGGG  # also default in grep_telomeres.sh
 motif=$DEFAULT
 method="default (no telomere.motif or busco.lineage file found in dir hierarchy)"
 

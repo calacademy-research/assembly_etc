@@ -33,9 +33,10 @@ function add_busco_info {
       }
 
       NR == 1 { sep = "" }  # only true if empty or invalid busco info file
+
       { got_telo_info = match($NF, "^telomere") }
 
-      ! got_telo_info {
+      got_telo_info == 0 {
          print ($1 in ar) ? $0 "\t" ar[$1] : $0
       }
 

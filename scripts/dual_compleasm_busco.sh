@@ -62,16 +62,30 @@ function update_with_BUSCOs {
    [ ! -s $comp_ftb ] && msg could not find compleasm's full_table_busco_format.tsv && return
    [ ! -s $busco_ft ] && msg could not find BUSCO's full_table.tsv && return
 
-   msg creating $compleasm_dir/full_table_w_busco_completes.tsv
-   update_compleasm_with_any_missing_buscos.sh $compleasm_dir $busco_dir > $compleasm_dir/full_table_w_busco_completes.tsv
+   to_create=$compleasm_dir/full_table_w_busco_completes.tsv
+   if [ ! -s $to_create ]; then
+      msg creating $to_create
+      update_compleasm_with_any_missing_buscos.sh $compleasm_dir $busco_dir > $to_create
+   else
+      msg $to_create exists
+   fi
 
-   msg creating $compleasm_dir/full_table_w_busco_completes.scafforder
-   make_scaff_order_busco_tsv.sh $compleasm_dir/full_table_w_busco_completes.tsv > $compleasm_dir/full_table_w_busco_completes.scafforder
+   to_create=$compleasm_dir/full_table_w_busco_completes.scafforder
+   if [ ! -s $to_create ]; then
+      msg creating $to_create
+      make_scaff_order_busco_tsv.sh $compleasm_dir/full_table_w_busco_completes.tsv > $to_create
+   else
+      msg $to_create exists
+   fi
 
    # make a scaflens file with compleasm and BUSCO info
    scaflens=${asm_pre}_w_cpa1_b5M_buscos.scaflens
-   msg creating $scaflens with union of BUSCOs from both runs
-   add_busco_stats_to_scaflens.sh <(make_scaflens.sh $assembly) $compleasm_dir > $compleasm_dir/$scaflens
+   if [ ! -s $compleasm_dir/$scaflens ]; then
+      msg creating $scaflens with union of BUSCOs from both runs
+      add_busco_stats_to_scaflens.sh <(make_scaflens.sh $assembly) $compleasm_dir > $compleasm_dir/$scaflens
+   else
+      msg $compleasm_dir/$scaflens/$scaflens exists
+   fi
 }
 
 ###########################################################

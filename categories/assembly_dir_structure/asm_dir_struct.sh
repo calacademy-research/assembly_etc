@@ -25,12 +25,12 @@ function show_dir_struct {
             HiC [put softlinks at this level pointing into the clean subdir file]
                 raw_data
                 clean [run fastp]
-                secondary_clean [Arima pipeline processing]
             RNA_seq [ could be traditional rnaseq or PacBio IsoSeq. useful for annotation improvement and DEG among other things ]
                 raw_data
                 clean [run fastp]
 
         genome_size_est [for jellyfish kmer spectra analysis and GenomeScope2 files (usually use 21mer and 25mer fir comparison)]
+            input
 
         asm [use hifiasm.sh or ng_hifiasm.sh]
             <hifiasm_basic_HiFi_run> [used in Arima pipeline to map HiC reads]
@@ -39,10 +39,11 @@ function show_dir_struct {
             run1 [ always put assemblies into a subdir of asm ]
             merge_asms [ ragtag_run.sh, quickmerge pgm and the like -- optional ]
 
+        map_hic_to_asm [Arima pipeline processing, uses reads/HiC/clean and asm fasta inputs]
+
         hic_scaffold [yahs_scaffold.sh or prepare_juicer_fastq.sh, run_juicer.sh, 3dDNA. JBAT run on local computer (UI heavy) files are returned to this dir ]
             <possible subdirs if you want to run juicer over different assemblies or want to use SALSA>
             yahs   [new seemingly better and definitely faster HiC scaffolder -- from darwin tree of life folks. use script yahs_scaffold.sh (or yahs_scaffold_no-ec.sh) ]
-            juicer [takes longer but might want to try this for comparison ]
             JBAT_post_review_finalization [whichever super-scaffolder used store the final mods you made in JBAT here]. for yahs, run yahs_post_JBAT_finalization.sh ]
 
         decontam [at this level since the decontam process uses the clean reads but also assemblies at various times]
