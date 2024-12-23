@@ -44,6 +44,28 @@ function set_addtl {
    fi
 }
 
+function informational_argument {
+   if [[ -z $1 || $1 == "-v" || $1 == "--version" || $1 == "-h" || $1 == "--help" ]]; then
+      true
+   else
+      false
+   fi
+}
+
+function check_for_pandas {
+   python3 -c "import pandas" 2>/dev/null; found=$?
+
+   if [ $found -ne 0 ]; then
+      msg "\n    Need to install pandas for compleasm to work.\n"
+      read -n 1 -r -p "    Would like to run the command: pip3 install pandas [y/n]?"
+
+      if [ "$REPLY" = "y" ]; then
+         echo -e "\npip3 install pandas"
+         pip3 install pandas
+      fi
+   fi
+}
+
 function print_compleasm_assembly_outdir_paths {
    awk '
       BEGIN{RS = " +"} $1 == "-a" { assembly=1; next } $1 == "-o" { outdir=1; next } $1 == "-l" { lineage=1; next }
@@ -53,9 +75,14 @@ function print_compleasm_assembly_outdir_paths {
    ' <(printf "$@")
 }
 
+function print_version {
+   $compleasm_pgm --version
+}
+
 function log_start {
    log=compleasm.log
-   msg $run_cmd"\n" |& tee $log  # first line in the log file
+   print_version |& tee $log  # first line in the log file
+   msg $run_cmd"\n" |& tee -a $log
    print_compleasm_assembly_outdir_paths "$run_cmd" |& tee -a $log
    log_msg ""
 
@@ -114,27 +141,29 @@ function set_run_args {
 ###########################################################
 
 THREAD_DEFAULTS=16
-LOCAL_LIB=/ccg/bin/compleasm_downloads
 
-if is_fasta $1; then  # abbreviated run command. can have assembly and thread and lineage. if no lineage look for busco.lineage file
+LOCAL_LIB=/ccg/bin/compleasm_downloads
+compleasm_pgm=/ccg/bin/compleasm.git/compleasm.py
+
+check_for_pandas
+
+if informational_argument $@; then  # no log file needed
+   $compleasm_pgm $@
+elif is_fasta $1; then  # abbreviated run command. can have assembly and thread and lineage. if no lineage look for busco.lineage file
    set_run_args $@  # sets assembly threads and lineage
    run_cmd="compleasm.sh $run_args"
 
    log_start
-
-   # run python program to do all the work
-   /ccg/bin/compleasm.git/compleasm.py $run_args |& tee -a $log
+   $compleasm_pgm $run_args |& tee -a $log  # run python program to do all the work
 else
    set_addtl $@
    run_cmd="compleasm.sh $@ $addtl"
 
    log_start
-
-   # run python program to do all the work
-   /ccg/bin/compleasm.git/compleasm.py $@ $addtl |& tee -a $log
+   $compleasm_pgm $@ $addtl |& tee -a $log  # run python program to do all the work
 fi
 
 # if run command and we successfully created a summary.txt file, then make a scaflens file with BUSCO style hits in it and make a scafforder file
 [[ $cmd == "run" ]] && [ -s $outdir_path/summary*.txt ] && make_post_run_files
 
-[ -s "$outdir_path" ] && mv $log $outdir_path/
+[ -d "$outdir_path" ] && mv $log $outdir_path/
