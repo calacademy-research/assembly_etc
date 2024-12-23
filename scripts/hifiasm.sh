@@ -23,10 +23,17 @@ function run_hifiasm {
    # if HIFIASM_PGM refers to executable file use it instead of hifiasm executable
    [ ! -z $HIFIASM_PGM ] && which $HIFIASM_PGM >/dev/null && hifiasm=$HIFIASM_PGM
 
-   echo $hifiasm $($hifiasm --version) > $log
-   echo -e "$hifiasm --write-ec --write-paf $args\n" >> $log
+   # stop writing paf and do not write either it or ec if /dev/null in $@  30Nov2024
+   write_ec="--write-ec";  write_paf="--write-paf"
+   addtl=$write_ec  # was $write_ec $write_paf
+   [[ "$args" =~ "/dev/null" ]] && addtl=""
 
-   $hifiasm --write-ec --write-paf $args |& tee -a $log
+   # log version and command line
+   echo $hifiasm $($hifiasm --version) > $log
+   echo -e "$hifiasm $addtl $args\n" >> $log
+
+   # run the program
+   $hifiasm $addtl $args |& tee -a $log
 }
 
 function usage {
@@ -80,9 +87,9 @@ run_hifiasm
 ls *.p_ctg.gfa >/dev/null 2>/dev/null
 retcode=$?
 
-dirname=adjunct_files
-if [ $retcode ]; then  # we have a .p_ctg.gfa file be it bp.p_ctg.gfa or hic.p_ctg.gfa
+if [ $retcode -eq 0 ]; then  # we have a .p_ctg.gfa file be it bp.p_ctg.gfa or hic.p_ctg.gfa
 
+   dirname=adjunct_files
    [ ! -d $dirname ] && mkdir $dirname
      [ -d $dirname ] && mv *.bin *.bed *utg.* *noseq*  ${dirname}/  2>/dev/null
 

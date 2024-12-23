@@ -13,6 +13,8 @@
 #    and adds -x <int> to exclude scaffolds less than <int> in calculations
 #    fixed bug where n_limit wasn't being used to change N breaks from default of 25
 
+use lib '/ccg/perl5';
+
 use strict;
 use warnings;
 use FAlite;

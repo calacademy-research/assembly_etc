@@ -222,6 +222,7 @@ function add_busco_inf_to_scaflens { # append BUSCO info to a scaflens file
 
    [ -s $new ] && msg "\n$scaflens is the original version" && msg $new has BUSCO scaffold stats added
 }
+
 function make_addtl_files {
    [ ! -s $busco_dir/short_summary*.txt ] && return 4
 
@@ -230,6 +231,7 @@ function make_addtl_files {
    add_busco_inf_to_scaflens
    msg ""
 }
+
 function run_BUSCO_and_make_addtl_files {
 
    lineage=$1
@@ -253,22 +255,7 @@ function run_BUSCO_and_make_addtl_files {
 
       # 19Jan2024 change to do both compleasm and BUSCO
       dual_compleasm_busco.sh $fasta $threads $lineage
-
       return
-
-     # 15Dec2023 not doing this, tho open question about make_addtl_files
-      outdir=${busco_dir}
-
-      cmd="busco5.sh -i $fasta -o $outdir -l $lineage -c $threads"
-      echo -e           "\n    This would be the command run:\n\n       $cmd\n"
-      read -t $timeout -p "    Do you want to run it (probably do so from a screen) [Y/N]? "
-      echo
-      if [[ $REPLY =~ ^[Yy]$ ]]; then
-         echo $cmd; echo
-         $cmd
-      else
-         return
-      fi
    fi
 
    make_addtl_files
