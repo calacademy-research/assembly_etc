@@ -1,4 +1,4 @@
-This provides overviews for scripts that support mitochonrdrion creation and annotation from short reads. For example, [reflowing mito sequence](#mito-reflow.sh) to start at a given tRNA.
+This provides overviews for scripts that support mitochonrdrion creation and annotation from short reads. For example, [reflowing mito sequence](# mito_reflow.sh) to start at a given tRNA.
 
 ### mito_reflow.sh
 
