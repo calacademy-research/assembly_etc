@@ -4,7 +4,7 @@ function msg { echo -e "$@" >/dev/stderr; }
 
 function usage {
    msg "
-    usage: grep_telomeres.sh <fasta_file> [col_width (default 222) [pattern_dup_threshold (default 6)]] [telomere motif (default TTAGGG)]
+    usage: grep_telomeres.sh <fasta_file> [col_width (default 222) [pattern_dup_threshold (default 5)]] [telomere motif (default TTAGGG)]
 
            intended to be piped to less to see the patterns in color, i.e., | less
            if ESC codes are seen use the -R option i.e., | less -R
@@ -45,7 +45,7 @@ function get_args {
 
    # assign to defaults if not explicitly on command line, also create revcomp motif var telpatF, and mult strings to grep
    ! is_int $width && width=222
-   ! is_int $mult && mult=6
+   ! is_int $mult && mult=5
 
    [ -z $telpatB ] && telpatB=CCCTAA  # default to most common motif. covers verts and many arhtropods
    telpatF=$(bioawk -v seq=$telpatB 'BEGIN{print revcomp(seq)}')

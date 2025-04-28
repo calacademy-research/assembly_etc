@@ -2,6 +2,15 @@
 
 # argument 1 is an assembly fasta file
 
+main() {
+   asm=$1
+   telomeres=$(replace_ext.sh $asm "telomere.overview")
+
+   make_scaflens |  # function uses $asm var
+   add_telomeres_if_available |
+   add_busco_if_available
+}
+
 function make_scaflens {
    awk '
       NR==1{strlen=sprintf("%s",$2); wid = length($2)}
@@ -44,6 +53,21 @@ function add_telomeres_if_available {
          }
       ' <(get_telomeres) -
 }
+
+function add_busco_if_available {
+   busco_dir_prefix="$(remove_ext.sh $asm)_cpa*_*"
+   busco_dir=$(ls -d $busco_dir_prefix 2>/dev/null | head -n 1)
+
+   if [[ ! -z "$busco_dir" && -d "$busco_dir" ]]; then
+      add_busco_stats_to_scaflens.sh - $busco_dir
+   else
+      cat -
+   fi
+}
+
+main $@
+
+exit
 
 asm=$1
 telomeres=$(replace_ext.sh $asm "telomere.overview")

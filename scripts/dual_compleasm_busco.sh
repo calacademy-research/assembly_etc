@@ -48,7 +48,7 @@ function set_run_args {
    compleasm_cmd="compleasm.sh run -a $assembly -t $threads -o $compleasm_dir -l $lineage"
 
    busco_dir=${asm_pre}_b5M_${lineage}
-   busco_cmd="busco5.sh -i $assembly -o $busco_dir -c $threads -l $lineage"
+   busco_cmd="busco5.sh -i $assembly -o $busco_dir -c $threads -l $lineage --offline"  # 03Mar2025 add --offline
 }
 
 function update_with_BUSCOs {
