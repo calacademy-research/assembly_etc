@@ -420,7 +420,7 @@ function handle_fastq {
       cat $tsv
    else
       msg "$fastq will take a while, but $tsv is also created and will be used if run again."
-      bioawk_cas '{ print $name, meanqual($qual), length($seq), meanqual($qual, 60) }' $fastq |
+      bioawk_cas -c fastx '{ print $name, meanqual($qual), length($seq), meanqual($qual, 60) }' $fastq |
       tee $tsv
    fi
 }
