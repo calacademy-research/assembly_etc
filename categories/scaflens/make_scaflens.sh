@@ -3,13 +3,14 @@
 # argument 1 is an assembly fasta file
 
 main() {
-   asm=$1
-   telomeres=$(replace_ext.sh $asm "telomere.overview")
+   get_args $@
 
    make_scaflens |  # function uses $asm var
    add_telomeres_if_available |
    add_busco_if_available
 }
+
+# primary and supplemental functions
 
 function make_scaflens {
    awk '
@@ -32,26 +33,27 @@ function make_scaflens {
    }' <(bawk '{print $name, length($seq)}' $asm | sort -k2,2nr)
 }
 
-function get_telomeres {  # JBH 23Jun2023 create telomere overview input in place if file does not exist
-   if [ -s $telomeres ]; then
-      cat $telomeres
-   else
-      overview_telomere_report.sh <(telomere_report.sh $asm)
-   fi
-}
-
 function add_telomeres_if_available {
-      cawk '
-         FILENUM==1 {
-            if ($1 in telos) telos[$1] = telos[$1] " " $2
-            else telos[$1] = $2
-         }
-         FILENUM==2 {
-            addtl = ""
-            if($1 in telos) addtl = "\ttelomeres: " telos[$1]
-            print $0 addtl
-         }
-      ' <(get_telomeres) -
+
+   function get_telomeres {  # JBH 23Jun2023 create telomere overview input in place if file does not exist
+      if [ -s $telomeres ]; then
+         cat $telomeres
+      else
+         overview_telomere_report.sh <(telomere_report.sh $asm)
+      fi
+   }
+
+   cawk '
+      FILENUM==1 {
+         if ($1 in telos) telos[$1] = telos[$1] " " $2
+         else telos[$1] = $2
+      }
+      FILENUM==2 {
+         addtl = ""
+         if($1 in telos) addtl = "\ttelomeres: " telos[$1]
+         print $0 addtl
+      }
+   ' <(get_telomeres) -
 }
 
 function add_busco_if_available {
@@ -65,12 +67,42 @@ function add_busco_if_available {
    fi
 }
 
+
+# get_args and usage functions
+
+function get_args {
+   BoldRed="\033[1;31m"; NC="\033[0m"; Blue="\033[0;34m"; Green="\033[0;32m"
+
+   asm=$1
+   [ -z $asm ] && usage
+
+   isfasta.sh $asm || usage \"$asm\" is not a fasta file
+
+   telomeres=$(replace_ext.sh $asm "telomere.overview")
+}
+
+function usage {
+   local script_name=$(basename $0)
+
+   [ ! -z "$1" ] && err_msg "\n    $@"  # error message passed in to show
+
+   # change this to match the arguments that your script expects
+   msg "
+    usage: $script_name <assembly fasta file>
+
+
+    assembly records sorted by size and info shown for each record
+    this includes size and telomeres found
+
+    if a compleasm BUSCO dir is found for this assembly fasta
+    then BUSCO info for each record is also added
+"
+   exit 1
+}
+function msg { echo -e "$@" > /dev/stderr; }
+function err_msg { echo -e $BoldRed"$@"$NC > /dev/stderr; }  # bold red
+
+
+# start things off calling main with all the args
+
 main $@
-
-exit
-
-asm=$1
-telomeres=$(replace_ext.sh $asm "telomere.overview")
-
-make_scaflens |  # function uses $asm var
-add_telomeres_if_available
