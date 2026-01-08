@@ -18,7 +18,7 @@
    add_busco_stats_to_scaflens.sh (uses busco_scaffstats.sh)
    get_busco_full_table.sh (can give it a filename, or give it a BUSCO directory and it navigates the BUSCO dir hierarchy to get the fulltable.tsv path)
    summary_from_busco_full_tables.sh
-   update_metaeuk_Missings_from_augustus_fulltable.sh  # originally used to update busco v4 from busco v5 but works to update b5M Missing BUSCOs from b5A
+   dual_compleasm_busco.sh
 "
 # 07Nov2022 be more specific about short_summary since later versions have a .txt and a .json
 

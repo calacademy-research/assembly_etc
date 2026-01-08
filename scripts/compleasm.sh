@@ -9,7 +9,7 @@
 
 main() {
    init_vars
-   check_informational_argument $@  # calls compleas.py and exits if informational
+   check_informational_argument $@  # calls compleasm.py and exits if informational
 
    check_for_pandas
    run_compleasm $@
