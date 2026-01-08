@@ -15,7 +15,7 @@ function set_args {
    seqsumm=""; unset no_thous
    min_len=0; min_Q=0; stack_stats=1
 
-   genome_size=$(find_genome.size.sh)  # command line can override this one
+   which find_genome.size.sh >/dev/null && genome_size=$(find_genome.size.sh)  # command line can override this one
    [ -z $genome_size ] && genome_size=0
    genome_size=$(get_int_val.sh $genome_size)
 
@@ -396,7 +396,11 @@ function qscores_by_thous {
 }
 
 function set_file_type {  # 1 for sequencing_summary file, 2 for fastq, 3 for 3 field with readid, qcov, len fields
-   isfastq.sh $seqsumm && file_type=2 && return
+   # sets first_char var. zgrep works with zipped and plaintext files
+   function get_file_first_char { local file=$1; [ ! -s "$file" ] && first_char="" && return;  first_char=$( zgrep -m 1 -o ^. $file); }
+   function is_fastq { get_file_first_char $1; [[ $first_char == "@" ]]; }
+
+   is_fastq $seqsumm && file_type=2 && return
 
    num_flds=$(head -n 1 $seqsumm | awk '{print NF}')
    [[ $num_flds -lt 6 ]] && file_type=3 && return
@@ -409,14 +413,14 @@ function handle_fastq {
    fastq=$1
 
    tsv_ext=qscore_len_tsv
-   tsv=$(replace_ext $fastq $tsv_ext)
+   tsv=$(replace_ext.sh $fastq $tsv_ext)
 
    if [ -s $tsv ]; then  # already extracted qscore and length info from the fastq, use it directly
       msg $tsv "\tfile with 3 fields: read ID, read Q score and sequence length"
       cat $tsv
    else
       msg "$fastq will take a while, but $tsv is also created and will be used if run again."
-      bawk '{ print $name, meanqual($qual), length($seq), meanqual($qual, 60) }' $fastq |
+      bioawk_cas '{ print $name, meanqual($qual), length($seq), meanqual($qual, 60) }' $fastq |
       tee $tsv
    fi
 }
