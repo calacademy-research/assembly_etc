@@ -6,13 +6,15 @@
 
 # add look for <dir>/*/full_table_busco_format.tsv for new compleasm 28Sep2023
 
+# 24Jan2026 use is_file_larger_than.sh for tsv file that might have comments only when error occurs in dual run
+
 name=$1
 [ -z $name ] && echo "no_file" && exit
 
-# check BUSCO version 2 and 3 naming convention
+# check BUSCO version 2 and 3 naming convention and dual_compleasm_busco
 if [ -d $name ]; then
    full=$name/full_table*.tsv
-   [ -s $full ] && name=$full
+   [ -s $full ] && is_file_larger_than.sh $full 50000 2>/dev/null && name=$full
 fi
 
 # check BUSCO version 4 and 5 naming convention, in which it create a dir from -o and inside that has a run_*odb10 dir in which the full_tble.tsv resides

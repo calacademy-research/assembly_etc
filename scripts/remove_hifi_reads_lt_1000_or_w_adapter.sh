@@ -74,7 +74,7 @@ function do_the_work {
 ###############################################################################
 
 fasta=$1  # if $1 is fasta then write fasta files instead of fasta
-[ ! -z $fasta ] && [[ $fasta != fasta ]] && msg "\n    usage: remove_hifi_reads_lt_1000_or_w_adapter.sh [fasta]\n    to write fastq instead of fastq use fasta as first arg" && exit 1
+[ ! -z $fasta ] && [[ $fasta != fasta ]] && msg "\n    usage: remove_hifi_reads_lt_1000_or_w_adapter.sh [fasta]\n    to write fasta instead of fastq use fasta as first arg" && exit 1
 
 chk_input
 time do_the_work

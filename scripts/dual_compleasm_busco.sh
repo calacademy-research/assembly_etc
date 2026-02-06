@@ -4,25 +4,29 @@
 # optional number for threads and a busco lineage
 # though if non-give and a busco.lineage file in dir hierarchy use it
 
-function usage {
-   msg "
-    usage: dual_compleasm_busco.sh <assembly fasta> [<thread count>] [<busco lineage>]
+main() {
+   THREAD_DEFAULTS=16
+   ! is_fasta $1 && usage
 
-           if no lineage given and there is a busco.lineage file in dir hierarchy, use it
-           thread count defaults to 16, an integer arg can be used to set a different number of threads
-"
-   exit 1
-}
+   # set the compleasm and the busco commands to run on the input arg 1 assembly
+   set_run_args $@
 
-function msg { echo -e "$@" >/dev/stderr; }
-function get_file_first_char { local file=$1; [ ! -s "$file" ] && first_char="X" && return;  first_char=$( zgrep -m 1 -o ^. $file); }
-function is_fasta { get_file_first_char $1; [[ $first_char == ">" ]]; }
-function is_fastq { get_file_first_char $1; [[ $first_char == "@" ]]; }
-function is_fastx { get_file_first_char $1; [[ $first_char == "@" || $first_char == ">" ]]; }
-function is_int {
-   [ -z "$1" ] && false && return
-   re='^[+-]?[0-9]+$'
-   [[ "$1" =~ $re ]]
+   # run compleasm on the assembly
+   if [ ! -d "$compleasm_dir" ]; then
+      $compleasm_cmd
+   else
+      msg "compleasm directory $compleasm_dir already exists.\n"
+   fi
+
+   # run busco on the assembly
+   if [ ! -d "$busco_dir" ]; then
+      $busco_cmd
+   else
+      msg "\nBUSCO directory $busco_dir already exists.\n"
+   fi
+
+   # make another full_table file with any BUSCOs found that were missing in the compleasm run (usually a small but nonzero number)
+   update_with_BUSCOs
 }
 
 # called if first arg is fasta
@@ -45,10 +49,10 @@ function set_run_args {
    asm_pre=$(remove_ext.sh $(basename $assembly))
 
    compleasm_dir=${asm_pre}_cpa1_${lineage}
-   compleasm_cmd="compleasm.sh run -a $assembly -t $threads -o $compleasm_dir -l $lineage"
+   compleasm_cmd="compleasm.sh $assembly $threads $lineage"
 
-   busco_dir=${asm_pre}_b5M_${lineage}
-   busco_cmd="busco5.sh -i $assembly -o $busco_dir -c $threads -l $lineage --offline"  # 03Mar2025 add --offline
+   busco_dir=${asm_pre}_b6ME_${lineage}  # ME for MetaEuk
+   busco_cmd="busco6.sh -i $assembly -o $busco_dir -c $threads -l $lineage --offline --metaeuk "  # 03Mar2025 add --offline 24Jan2026 add --metaeuk
 }
 
 function update_with_BUSCOs {
@@ -79,7 +83,7 @@ function update_with_BUSCOs {
    fi
 
    # make a scaflens file with compleasm and BUSCO info
-   scaflens=${asm_pre}_w_cpa1_b5M_buscos.scaflens
+   scaflens=${asm_pre}_w_cpa1_b6M_buscos.scaflens
    if [ ! -s $compleasm_dir/$scaflens ]; then
       msg creating $scaflens with union of BUSCOs from both runs
       add_busco_stats_to_scaflens.sh <(make_scaflens.sh $assembly) $compleasm_dir > $compleasm_dir/$scaflens
@@ -88,30 +92,30 @@ function update_with_BUSCOs {
    fi
 }
 
+function usage {
+   msg "
+    usage: dual_compleasm_busco.sh <assembly fasta> [<thread count>] [<busco lineage>]
+
+           if no lineage given and there is a busco.lineage file in dir hierarchy, use it
+           thread count defaults to 16, an integer arg can be used to set a different number of threads
+"
+   exit 1
+}
+
+function msg { echo -e "$@" >/dev/stderr; }
+function get_file_first_char { local file=$1; [ ! -s "$file" ] && first_char="X" && return;  first_char=$( zgrep -m 1 -o ^. $file); }
+function is_fasta { get_file_first_char $1; [[ $first_char == ">" ]]; }
+function is_fastq { get_file_first_char $1; [[ $first_char == "@" ]]; }
+function is_fastx { get_file_first_char $1; [[ $first_char == "@" || $first_char == ">" ]]; }
+function is_int {
+   [ -z "$1" ] && false && return
+   re='^[+-]?[0-9]+$'
+   [[ "$1" =~ $re ]]
+}
+
+
 ###########################################################
 #              set vars and start things off              #
 ###########################################################
 
-THREAD_DEFAULTS=16
-
-! is_fasta $1 && usage
-
-# set the compleasm and the busco commands to run on the input arg 1 assembly
-set_run_args $@
-
-# run compleasm on the assembly
-if [ ! -d "$compleasm_dir" ]; then
-   $compleasm_cmd
-else
-   msg "compleasm directory $compleasm_dir already exists.\n"
-fi
-
-# run busco on the assembly
-if [ ! -d "$busco_dir" ]; then
-   $busco_cmd
-else
-   msg "\nBUSCO directory $busco_dir already exists.\n"
-fi
-
-# make another full_table file with any BUSCOs found that were missing in the compleasm run (usually a small but nonzero number)
-update_with_BUSCOs
+main $@

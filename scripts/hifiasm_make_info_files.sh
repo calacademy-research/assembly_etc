@@ -22,8 +22,6 @@
 "
 # 07Nov2022 be more specific about short_summary since later versions have a .txt and a .json
 
-lineage_file=/ccg/bin/busco_downloads_v5/file_versions.tsv
-
 function msg { # write a msg to stderr
    >&2 echo -e "$@"
 }
@@ -198,9 +196,18 @@ function make_basic_files {  # not using arg anymore, just works for primary gfa
 ###################################
 
 function is_lineage {
-   lineage=$1
-   grep "^${1}_" $lineage_file >/dev/null
+   local lineage=$1
+   [ -z $lineage ] && return 1
+
+   # 01Apr2025 allow _odb<num> in name since we might have odb10 or odb12
+
+   local search_str=${lineage}_odb[12][0-9]
+   [[ $lineage =~ _odb[12][0-9]$ ]] && search_str=$lineage
+
+   lineage_file=/ccg/bin/busco_downloads_v5/file_versions.tsv
+   grep -i ^$search_str -m 1 $lineage_file >/dev/null
 }
+
 function make_scafforder_file {
 
    scaff_order=${prefix}_b5M_scafforder.tsv
@@ -213,6 +220,7 @@ function make_scafforder_file {
       [ -s $scaff_order ] && msg $scaff_order created
    fi
 }
+
 function add_busco_inf_to_scaflens { # append BUSCO info to a scaflens file
 
    new=${scaflens}_w_buscos
@@ -254,7 +262,7 @@ function run_BUSCO_and_make_addtl_files {
       # compleasm.sh $fasta $threads $lineage
 
       # 19Jan2024 change to do both compleasm and BUSCO
-      dual_compleasm_busco.sh $fasta $threads $lineage
+      dual_compleasm_busco.sh $fasta $lineage $threads
       return
    fi
 
